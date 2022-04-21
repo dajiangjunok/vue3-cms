@@ -10,7 +10,6 @@ const yjRequest = new YJRequest({
       if (token) {
         // config.headers.Authorization = `Bearer ${token}`
       }
-
       console.log('单实例请求成功的拦截')
       return config
     },
@@ -29,10 +28,23 @@ const yjRequest = new YJRequest({
   }
 })
 
-yjRequest.instance
-  .get('http://123.207.32.32:8000/home/multidata')
+yjRequest
+  .request({
+    url: 'http://123.207.32.32:8000/home/multidata',
+    method: 'GET',
+    interceptors: {
+      requestInterceptor: (config) => {
+        console.log('单接口请求发起被拦截')
+        return config
+      },
+      responseInterceptor: (config) => {
+        console.log('单接口请求响应被拦截')
+        return config
+      }
+    }
+  })
   .then((res) => {
-    console.log(res.data)
+    console.log(res)
   })
 
 export default yjRequest

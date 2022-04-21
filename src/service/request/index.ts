@@ -50,6 +50,26 @@ class YJRequest {
       }
     )
   }
+
+  request(config: YjRequestConfig) {
+    if (config.interceptors?.requestInterceptor) {
+      config = config.interceptors.requestInterceptor(config)
+    }
+
+    return new Promise((resolve, reject) => {
+      this.instance
+        .request(config)
+        .then((res) => {
+          if (config.interceptors?.responseInterceptor) {
+            res = config.interceptors.responseInterceptor(res)
+          }
+          resolve(res)
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+  }
 }
 
 export default YJRequest
