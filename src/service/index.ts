@@ -29,9 +29,8 @@ const yjRequest = new YJRequest({
 })
 
 yjRequest
-  .request({
+  .get({
     url: 'http://123.207.32.32:8000/home/multidata',
-    method: 'GET',
     interceptors: {
       requestInterceptor: (config) => {
         console.log('单接口请求发起被拦截')
@@ -41,7 +40,8 @@ yjRequest
         console.log('单接口请求响应被拦截')
         return config
       }
-    }
+    },
+    isShowLoading: true
   })
   .then((res) => {
     console.log(res)
