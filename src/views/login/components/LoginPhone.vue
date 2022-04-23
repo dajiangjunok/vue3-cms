@@ -4,7 +4,7 @@
       ref="phoneFormRef"
       :model="phoneForm"
       :rules="rules"
-      label-width="120px"
+      label-width="80px"
     >
       <el-form-item label="手机号:" prop="phoneNumber">
         <el-input
@@ -38,10 +38,15 @@ export default defineComponent({
       password: ''
     })
 
+    const login = () => {
+      console.log('手机登录成功')
+    }
+
     return {
       phoneFormRef,
       phoneForm,
-      rules
+      rules,
+      login
     }
   }
 })

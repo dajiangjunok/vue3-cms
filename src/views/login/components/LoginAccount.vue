@@ -4,7 +4,7 @@
       ref="accountFormRef"
       :model="accountForm"
       :rules="rules"
-      label-width="120px"
+      label-width="80px"
     >
       <el-form-item label="账号:" prop="username">
         <el-input
@@ -40,10 +40,19 @@ export default defineComponent({
       password: ''
     })
 
+    const login = () => {
+      accountFormRef.value?.validate((flag, data) => {
+        if (flag) {
+          console.log('账号登录成功')
+        }
+      })
+    }
+
     return {
       accountFormRef,
       rules,
-      accountForm
+      accountForm,
+      login
     }
   }
 })
