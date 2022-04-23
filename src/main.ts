@@ -1,9 +1,13 @@
 import { createApp } from 'vue'
 import { globalRegister } from './global'
-import './service'
 import App from './App.vue'
+
+import '@/assets/css/index.less'
+import 'normalize.css'
+
 import router from './router'
 import store from './store'
+// import yjRequest from './service'
 
 const app = createApp(App)
 

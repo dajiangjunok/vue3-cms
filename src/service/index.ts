@@ -28,23 +28,23 @@ const yjRequest = new YJRequest({
   }
 })
 
-yjRequest
-  .get({
-    url: 'http://123.207.32.32:8000/home/multidata',
-    interceptors: {
-      requestInterceptor: (config) => {
-        console.log('单接口请求发起被拦截')
-        return config
-      },
-      responseInterceptor: (config) => {
-        console.log('单接口请求响应被拦截')
-        return config
-      }
-    },
-    isShowLoading: true
-  })
-  .then((res) => {
-    console.log(res)
-  })
+// yjRequest
+//   .get({
+//     url: 'http://123.207.32.32:8000/home/multidata',
+//     interceptors: {
+//       requestInterceptor: (config) => {
+//         console.log('单接口请求发起被拦截')
+//         return config
+//       },
+//       responseInterceptor: (config) => {
+//         console.log('单接口请求响应被拦截')
+//         return config
+//       }
+//     },
+//     isShowLoading: true
+//   })
+//   .then((res) => {
+//     console.log(res)
+//   })
 
 export default yjRequest
