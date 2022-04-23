@@ -41,7 +41,7 @@ export default defineComponent({
     })
 
     const login = () => {
-      accountFormRef.value?.validate((flag, data) => {
+      accountFormRef.value?.validate((flag) => {
         if (flag) {
           console.log('账号登录成功')
         }
