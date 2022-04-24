@@ -10,10 +10,15 @@ const loginModule: Module<ILoginState, IRootStata> = {
       userInfo: {}
     }
   },
-  mutations: {},
+  mutations: {
+    updatedUserInfo(state: ILoginState, payload: any) {
+      state.userInfo = payload
+    }
+  },
   actions: {
     accountLoginAction({ commit }, payload: any) {
       console.log('accountLoginAction', payload)
+      commit('userInfo', { name: 'wyj', age: 22 })
     }
   },
   modules: {}
