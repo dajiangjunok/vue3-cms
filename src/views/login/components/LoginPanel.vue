@@ -32,6 +32,8 @@ import { defineComponent, ref } from 'vue'
 import LoginAccount from './LoginAccount.vue'
 import LoginPhone from './LoginPhone.vue'
 
+import cache from '@/utils/cache'
+
 export default defineComponent({
   name: 'login-panel',
   components: {
@@ -40,13 +42,13 @@ export default defineComponent({
   },
   setup() {
     const activeTab = ref<string>('userLogin')
-    const isCheckPassword = ref(false)
+    const isCheckPassword = ref(cache.getCache('isCheckPassword'))
     const loginAccountRef = ref<InstanceType<typeof LoginAccount>>()
     const loginPhoneRef = ref<InstanceType<typeof LoginPhone>>()
 
     const onLogin = () => {
       if (activeTab.value === 'userLogin') {
-        loginAccountRef.value?.login()
+        loginAccountRef.value?.login(isCheckPassword.value)
       } else {
         loginPhoneRef.value?.login()
       }
