@@ -29,6 +29,7 @@
 import type { FormInstance } from 'element-plus'
 import { defineComponent, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 import { rules } from '../config/account-config'
 import cache from '@/utils/cache'
@@ -37,6 +38,7 @@ export default defineComponent({
   name: 'login-account',
   setup() {
     const accountFormRef = ref<FormInstance>()
+    const $router = useRouter()
 
     const accountForm = reactive({
       name: cache.getCache('name') ?? '',
@@ -46,9 +48,8 @@ export default defineComponent({
     const store = useStore()
 
     const login = (isCheckPassword: boolean) => {
-      accountFormRef.value?.validate((flag) => {
+      accountFormRef.value?.validate(async (flag) => {
         if (flag) {
-          console.log('账号登录成功')
           if (isCheckPassword) {
             cache.setCache('isCheckPassword', isCheckPassword)
             cache.setCache('name', accountForm.name)
@@ -60,7 +61,8 @@ export default defineComponent({
           }
 
           // 登录逻辑
-          store.dispatch('login/accountLoginAction', { ...accountForm })
+          await store.dispatch('login/accountLoginAction', { ...accountForm })
+          $router.push({ path: '/main' })
         }
       })
     }

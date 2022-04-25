@@ -13,3 +13,9 @@ export function accountLogin(config: IAccount) {
     data: config
   })
 }
+
+export function getUserInfo(id: string) {
+  return yjRequest.get<IDataType<any>>({
+    url: LoginAPI.LoginUserInfo + id
+  })
+}
