@@ -2,6 +2,8 @@ import { Module } from 'vuex'
 import { IRootStata } from '../types'
 import { ILoginState } from './types'
 
+import { accountLogin } from '@/service/login/service_login'
+
 const loginModule: Module<ILoginState, IRootStata> = {
   namespaced: true,
   state() {
@@ -11,17 +13,18 @@ const loginModule: Module<ILoginState, IRootStata> = {
     }
   },
   mutations: {
-    updatedUserInfo(state: ILoginState, payload: any) {
-      state.userInfo = payload
+    updatedToken(state: ILoginState, payload: any) {
+      state.token = payload
     }
   },
   actions: {
-    accountLoginAction({ commit }, payload: any) {
+    async accountLoginAction({ commit }, payload: any) {
       console.log('accountLoginAction', payload)
-      commit('userInfo', { name: 'wyj', age: 22 })
+      const res = await accountLogin(payload)
+
+      commit('updatedToken', res.data.token)
     }
-  },
-  modules: {}
+  }
 }
 
 export default loginModule

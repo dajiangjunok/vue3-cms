@@ -43,11 +43,11 @@ class YJRequest {
           })
         }
 
-        console.log('所有实例拦截器：请求发送拦截')
+        // console.log('所有实例拦截器：请求发送拦截')
         return config
       },
       (err) => {
-        console.log('所有实例拦截器：请求发送拦截失败')
+        // console.log('所有实例拦截器：请求发送拦截失败')
         return err
       }
     )
@@ -55,13 +55,13 @@ class YJRequest {
       (res) => {
         setTimeout(() => {
           this.loading?.close()
-        }, 2000)
-        console.log('所有实例拦截器：请求返回拦截')
+        }, 1000)
+        // console.log('所有实例拦截器：请求返回拦截')
         return res.data
       },
       (err) => {
         this.loading?.close()
-        console.log('所有实例拦截器：请求返回拦截失败')
+        // console.log('所有实例拦截器：请求返回拦截失败')
         return err
       }
     )

@@ -6,9 +6,9 @@
       :rules="rules"
       label-width="80px"
     >
-      <el-form-item label="账号:" prop="username">
+      <el-form-item label="账号:" prop="name">
         <el-input
-          v-model="accountForm.username"
+          v-model="accountForm.name"
           placeholder="请输入账号"
           clearable
         />
@@ -39,7 +39,7 @@ export default defineComponent({
     const accountFormRef = ref<FormInstance>()
 
     const accountForm = reactive({
-      username: cache.getCache('username') ?? '',
+      name: cache.getCache('name') ?? '',
       password: cache.getCache('password') ?? ''
     })
 
@@ -51,11 +51,11 @@ export default defineComponent({
           console.log('账号登录成功')
           if (isCheckPassword) {
             cache.setCache('isCheckPassword', isCheckPassword)
-            cache.setCache('username', accountForm.username)
+            cache.setCache('name', accountForm.name)
             cache.setCache('password', accountForm.password)
           } else {
             cache.deleteCache('isCheckPassword')
-            cache.deleteCache('username')
+            cache.deleteCache('name')
             cache.deleteCache('password')
           }
 
