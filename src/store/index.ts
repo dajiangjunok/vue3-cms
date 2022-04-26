@@ -1,5 +1,5 @@
-import { createStore } from 'vuex'
-import { IRootStata } from './types'
+import { createStore, Store, useStore as useVuexStore } from 'vuex'
+import { IRootStata, IStoreType } from './types'
 import login from './login/login'
 import VuexPersist from 'vuex-persist'
 
@@ -22,5 +22,9 @@ const store = createStore<IRootStata>({
   },
   plugins: [persist.plugin]
 })
+
+export function useStore(): Store<IStoreType> {
+  return useVuexStore()
+}
 
 export default store

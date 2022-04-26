@@ -1,6 +1,12 @@
-interface IRootStata {
+import { ILoginState } from './login/types'
+
+export interface IRootStata {
   name: string
-  login?: any
+  login?: ILoginState
 }
 
-export { IRootStata }
+interface IRootStateAndModule {
+  login: ILoginState
+}
+
+export type IStoreType = IRootStata & IRootStateAndModule

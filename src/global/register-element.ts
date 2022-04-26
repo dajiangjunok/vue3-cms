@@ -7,7 +7,14 @@ import {
   ElForm,
   ElFormItem,
   ElInput,
-  ElCheckbox
+  ElCheckbox,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItem
 } from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 // import 'element-plus/theme-chalk/el-loading.css'
@@ -21,7 +28,14 @@ const components = [
   ElForm,
   ElFormItem,
   ElInput,
-  ElCheckbox
+  ElCheckbox,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItem
 ]
 
 export function registerElement(app: App): void {

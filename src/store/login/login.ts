@@ -2,7 +2,11 @@ import { Module } from 'vuex'
 import { IRootStata } from '../types'
 import { ILoginState } from './types'
 
-import { accountLogin, getUserInfo } from '@/service/login/service_login'
+import {
+  accountLogin,
+  getUserInfo,
+  getUserMenu
+} from '@/service/login/service_login'
 import { ElMessage } from 'element-plus'
 
 const loginModule: Module<ILoginState, IRootStata> = {
@@ -10,7 +14,8 @@ const loginModule: Module<ILoginState, IRootStata> = {
   state() {
     return {
       token: '',
-      userInfo: '' //用户信息
+      userInfo: '', //用户信息
+      userMenu: []
     }
   },
   mutations: {
@@ -19,6 +24,9 @@ const loginModule: Module<ILoginState, IRootStata> = {
     },
     updateUserInfo(state: ILoginState, payload: any) {
       state.userInfo = payload
+    },
+    updateUserMenu(state: ILoginState, payload: any) {
+      state.userMenu = payload
     }
   },
   actions: {
@@ -33,13 +41,21 @@ const loginModule: Module<ILoginState, IRootStata> = {
       }
     },
     // 获取用户信息
-    async getUserInfoAction({ commit }, payload: string) {
+    async getUserInfoAction({ commit, dispatch }, payload: string) {
       const res = await getUserInfo(payload)
       if (res.code === 0) {
         commit('updateUserInfo', res.data)
+
+        dispatch('getUserMenu', res.data.role.id)
       } else {
         ElMessage.warning('获取用户信息失败～')
       }
+    },
+    // 获取用户菜单
+    async getUserMenu({ commit }, id: string) {
+      const userMenusResult = await getUserMenu(id)
+      const userMenus = userMenusResult.data
+      commit('updateUserMenu', userMenus)
     }
   }
 }
