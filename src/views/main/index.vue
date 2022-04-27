@@ -2,11 +2,11 @@
   <div class="main">
     <el-container class="main-content">
       <el-aside :width="isCollapse ? '60px' : '210px'">
-        <NavMenu />
+        <NavMenu :collapse="isCollapse" />
       </el-aside>
       <el-container class="page">
         <el-header class="page-header">
-          <NavHeader />
+          <NavHeader @changeFold="onChangeFold" />
         </el-header>
         <el-main class="page-content"> </el-main>
       </el-container>
@@ -29,8 +29,13 @@ export default defineComponent({
   },
   setup() {
     const isCollapse = ref(false)
+
+    const onChangeFold = (isFold: boolean) => {
+      isCollapse.value = isFold
+    }
     return {
-      isCollapse
+      isCollapse,
+      onChangeFold
     }
   }
 })
