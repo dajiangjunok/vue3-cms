@@ -26,10 +26,12 @@
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
-                <i v-if="subitem.icon" :class="subitem.icon"></i>
-                <span>{{ subitem.name }}</span>
-              </el-menu-item>
+              <router-link :to="subitem.url" custom v-slot="{ navigate }">
+                <el-menu-item :index="subitem.id + ''" @click="navigate">
+                  <i v-if="subitem.icon" :class="subitem.icon"></i>
+                  {{ subitem.name }}
+                </el-menu-item>
+              </router-link>
             </template>
           </el-sub-menu>
         </template>

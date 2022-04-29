@@ -2,6 +2,7 @@ import { createStore, Store, useStore as useVuexStore } from 'vuex'
 import { IRootStata, IStoreType } from './types'
 import login from './login/login'
 import VuexPersist from 'vuex-persist'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 
 const persist = new VuexPersist({
   storage: window.localStorage,
@@ -22,6 +23,9 @@ const store = createStore<IRootStata>({
   },
   plugins: [persist.plugin]
 })
+
+// console.log(store.state.login!.userMenu)
+mapMenusToRoutes(store.state.login!.userMenu)
 
 export function useStore(): Store<IStoreType> {
   return useVuexStore()
