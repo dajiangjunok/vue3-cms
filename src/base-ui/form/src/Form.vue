@@ -34,7 +34,7 @@
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
-                  style="width: 100%"
+                  style="background-color: #fff"
                   v-bind="item.otherOptions"
                 ></el-date-picker>
               </template>

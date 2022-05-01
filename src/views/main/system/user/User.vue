@@ -9,7 +9,7 @@
 import { defineComponent } from 'vue'
 
 import YJForm from '@/base-ui/form'
-import { searchFormConfig } from './config/search.config'
+import { searchFormConfig } from './config/search.config' //form配置项
 
 export default defineComponent({
   name: 'User',
@@ -26,6 +26,6 @@ export default defineComponent({
 
 <style scoped lang="less">
 .header-form {
-  border: 1px solid #333;
+  // border: 1px solid #333;
 }
 </style>

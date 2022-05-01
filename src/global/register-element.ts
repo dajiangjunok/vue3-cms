@@ -21,6 +21,7 @@ import {
   ElOption,
   ElDatePicker,
   ElDropdown,
+  ElDropdownMenu,
   ElDropdownItem,
   ElAvatar
 } from 'element-plus'
@@ -50,6 +51,7 @@ const components = [
   ElOption,
   ElDatePicker,
   ElDropdown,
+  ElDropdownMenu,
   ElDropdownItem,
   ElAvatar
 ]
