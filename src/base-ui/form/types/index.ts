@@ -8,6 +8,7 @@ export interface IForm {
 }
 
 export interface IFormItem {
+  field: string
   type: IFormType //输入框类型
   label: string //输入框标题
   rules?: any[] //输入框规则

@@ -13,6 +13,7 @@
                 v-if="item.type === 'input' || item.type === 'password'"
               >
                 <el-input
+                  v-model="formDate[`${item.field}`]"
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   :show-password="item.type === 'password'"
@@ -20,6 +21,7 @@
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
+                  v-model="formDate[`${item.field}`]"
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   style="width: 100%"
@@ -34,6 +36,7 @@
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
+                  v-model="formDate[`${item.field}`]"
                   style="background-color: #fff"
                   v-bind="item.otherOptions"
                 ></el-date-picker>
@@ -47,12 +50,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 import { IFormItem } from '../types'
 
 export default defineComponent({
   name: 'yj-form',
   props: {
+    modelValue: {
+      type: Object,
+      required: true
+    },
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => []
@@ -76,8 +83,21 @@ export default defineComponent({
       })
     }
   },
-  setup() {
-    return {}
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const formDate = ref({ ...props.modelValue })
+
+    // 监听
+    watch(
+      formDate,
+      (newFormData) => {
+        emit('update:modelValue', newFormData)
+      },
+      { deep: true }
+    )
+    return {
+      formDate
+    }
   }
 })
 </script>
