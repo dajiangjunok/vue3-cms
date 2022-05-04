@@ -25,6 +25,7 @@ const store = createStore<IRootStata>({
 })
 
 // console.log(store.state.login!.userMenu)
+// 注册相关权限路由
 mapMenusToRoutes(store.state.login!.userMenu)
 
 export function useStore(): Store<IStoreType> {

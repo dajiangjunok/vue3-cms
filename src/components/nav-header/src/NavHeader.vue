@@ -6,21 +6,26 @@
       @click="onFoldChange"
     ></i>
     <div class="content">
-      <div>面包屑</div>
+      <Breadcurmb :breadcrumbs="breadcrumbs" />
       <UserInfo />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import UserInfo from './UserInfo.vue'
+import Breadcurmb from '@/base-ui/breadcrumb'
+import { pathMapBreadcrumbs } from '@/utils/map-menus'
+import { useRoute } from 'vue-router'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'nav-header',
   emits: ['changeFold'],
   components: {
-    UserInfo
+    UserInfo,
+    Breadcurmb
   },
   setup(props, { emit }) {
     const isFold = ref(false)
@@ -28,9 +33,19 @@ export default defineComponent({
       isFold.value = !isFold.value
       emit('changeFold', isFold.value)
     }
+
+    const breadcrumbs = computed(() => {
+      const route = useRoute()
+      const store = useStore()
+      const currentRoute = route.path
+      const userMenus = store.state.login.userMenu
+
+      return pathMapBreadcrumbs(userMenus, currentRoute)
+    })
     return {
       isFold,
-      onFoldChange
+      onFoldChange,
+      breadcrumbs
     }
   }
 })
@@ -46,7 +61,7 @@ export default defineComponent({
     justify-content: space-between;
     align-items: center;
     flex: 1;
-    padding: 0 20px;
+    padding: 0 10px;
   }
 
   .icon-zhankai {

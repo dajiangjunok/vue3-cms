@@ -1,5 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 import router from '@/router'
+import { IBreadcrumb } from '@/base-ui/breadcrumb/types/index'
+
+let firstMenu: any = null
 
 interface IMenu {
   children: any[] | null
@@ -11,7 +14,7 @@ interface IMenu {
   url: string
 }
 
-export function mapMenusToRoutes(userMenu: any[]): void {
+export function mapMenusToRoutes(userMenus: any[]): void {
   // 1.拿到所有的routes
   const mainRotes = require.context('../router/main', true, /\.ts$/)
   const allRotes: RouteRecordRaw[] = []
@@ -38,9 +41,44 @@ export function mapMenusToRoutes(userMenu: any[]): void {
         if (route) {
           router.addRoute('main', route)
         }
+        if (!firstMenu) {
+          firstMenu = menu
+        }
       }
     })
   }
 
-  _recurseGetRoute(userMenu)
+  _recurseGetRoute(userMenus)
 }
+
+export function pathMapBreadcrumbs(userMenus: any[], currentPath: string) {
+  const breadcrumbs: IBreadcrumb[] = []
+  pathMapToMenu(userMenus, currentPath, breadcrumbs)
+  return breadcrumbs
+}
+
+export function pathMapToMenu(
+  userMenus: any[],
+  currentPath: string,
+  breadcurmbs?: IBreadcrumb[]
+): any {
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMapToMenu(
+        menu.children ?? [],
+        currentPath,
+        breadcurmbs
+      )
+      if (findMenu) {
+        breadcurmbs?.push({ name: menu.name })
+        breadcurmbs?.push({ name: findMenu.name })
+        return findMenu
+      }
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      // 返回一致的
+      return menu
+    }
+  }
+}
+
+export { firstMenu }

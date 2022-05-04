@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import cache from '@/utils/cache'
+import { firstMenu } from '@/utils/map-menus'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -35,6 +36,10 @@ router.beforeEach((to) => {
     const loginData = cache.getCache('login')?.login
     const token = loginData?.token
     if (!token) return '/login'
+  }
+
+  if (to.path === '/main') {
+    return firstMenu.url
   }
 })
 

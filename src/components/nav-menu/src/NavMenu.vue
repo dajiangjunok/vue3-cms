@@ -5,7 +5,7 @@
       <span v-show="!collapse" class="title">Vue3+TS</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultActive"
       class="el-menu-vertical"
       :collapse="collapse"
       background-color="#0c2135"
@@ -51,6 +51,9 @@
 import { defineComponent, computed } from 'vue'
 // import { useStore } from 'vuex' // 直接导入userStore 构建出的store的类型是any，这可能会对代码留下隐患
 import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+
+import { pathMapToMenu } from '@/utils/map-menus'
 
 export default defineComponent({
   name: 'nav-menu',
@@ -64,8 +67,15 @@ export default defineComponent({
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenu)
 
+    // 计算出当前匹配到的路由信息,将匹配路由的id赋值给defaultActive
+    const route = useRoute()
+    const currentPath = route.path
+    const currentRoute = pathMapToMenu(userMenus.value, currentPath)
+    const defaultActive = currentRoute.id + ''
+
     return {
-      userMenus
+      userMenus,
+      defaultActive
     }
   }
 })
