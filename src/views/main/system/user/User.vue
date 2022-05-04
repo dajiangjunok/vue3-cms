@@ -25,7 +25,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-// .header-form {
-//   border: 1px solid #333;
-// }
+.header-form {
+  background-color: #fff;
+  padding-right: 10px;
+}
 </style>
