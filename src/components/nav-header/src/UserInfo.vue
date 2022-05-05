@@ -10,7 +10,7 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>退出登录</el-dropdown-item>
+          <el-dropdown-item @click="onLoginOut">退出登录</el-dropdown-item>
           <el-dropdown-item divided>用户信息</el-dropdown-item>
           <el-dropdown-item>系统管理</el-dropdown-item>
         </el-dropdown-menu>
@@ -22,6 +22,8 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
+import { useRouter } from 'vue-router'
+import cache from '@/utils/cache'
 
 export default defineComponent({
   name: 'user-info',
@@ -29,8 +31,15 @@ export default defineComponent({
     const store = useStore()
     const name = computed(() => store.state.login.userInfo.name)
 
+    const router = useRouter()
+    const onLoginOut = () => {
+      cache.clearCache()
+      router.replace({ path: '/login' })
+    }
+
     return {
-      name
+      name,
+      onLoginOut
     }
   }
 })
