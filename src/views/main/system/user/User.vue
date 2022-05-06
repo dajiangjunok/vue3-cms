@@ -2,7 +2,26 @@
   <div class="user">
     <PageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <YJTable :tableList="userList" :propList="userPropList" />
+      <YJTable
+        :tableList="userList"
+        :propList="userPropList"
+        :otherProps="{ stripe: true }"
+      >
+        <template #enable="{ row }">
+          <el-tag :type="row.enable == 1 ? 'success' : 'warning'">{{
+            row.enable == 1 ? '启用' : '已禁用'
+          }}</el-tag>
+        </template>
+        <template #createAt="{ row }">
+          {{ String(row.createAt).substring(0, 10) }}
+        </template>
+        <template #updateAt="{ row }">
+          {{ String(row.updateAt).substring(0, 10) }}
+        </template>
+        <template #operate>
+          <el-button size="small" type="danger">删除</el-button>
+        </template>
+      </YJTable>
     </div>
   </div>
 </template>
@@ -36,7 +55,7 @@ export default defineComponent({
       return store.state.system.userList
     })
 
-    const userPropList = [
+    const userPropList: any[] = [
       // {
       //   label: 'id',
       //   prop: 'id'
@@ -55,15 +74,24 @@ export default defineComponent({
       },
       {
         label: '状态',
-        prop: 'enable'
+        prop: 'enable',
+        slotName: 'enable',
+        width: 80
       },
       {
         label: '创建时间',
-        prop: 'createAt'
+        prop: 'createAt',
+        slotName: 'createAt'
       },
       {
         label: '更新时间',
-        prop: 'updateAt'
+        prop: 'updateAt',
+        slotName: 'updateAt'
+      },
+      {
+        label: '操作',
+        slotName: 'operate',
+        width: 80
       }
     ]
 
