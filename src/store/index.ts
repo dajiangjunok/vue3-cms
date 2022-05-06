@@ -1,6 +1,7 @@
 import { createStore, Store, useStore as useVuexStore } from 'vuex'
 import { IRootStata, IStoreType } from './types'
 import login from './login/login'
+import system from './main/system/system'
 import VuexPersist from 'vuex-persist'
 import { mapMenusToRoutes } from '@/utils/map-menus'
 
@@ -19,7 +20,8 @@ const store = createStore<IRootStata>({
   mutations: {},
   actions: {},
   modules: {
-    login
+    login,
+    system
   },
   plugins: [persist.plugin]
 })

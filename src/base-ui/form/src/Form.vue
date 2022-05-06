@@ -1,5 +1,6 @@
 <template>
   <div class="yj-form">
+    <slot name="header"></slot>
     <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
@@ -46,6 +47,7 @@
         </template>
       </el-row>
     </el-form>
+    <slot name="footer"></slot>
   </div>
 </template>
 
