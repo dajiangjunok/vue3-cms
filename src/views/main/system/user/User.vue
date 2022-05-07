@@ -3,13 +3,18 @@
     <PageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
       <YJTable
+        title="用户管理"
         :tableList="userList"
         :propList="userPropList"
         :otherProps="{ stripe: true }"
       >
+        <template #headerHandler>
+          <el-button size="small" type="primary">新建用户</el-button>
+        </template>
+
         <template #enable="{ row }">
           <el-tag :type="row.enable == 1 ? 'success' : 'warning'">{{
-            row.enable == 1 ? '启用' : '已禁用'
+            row.enable == 1 ? '已启用' : '已禁用'
           }}</el-tag>
         </template>
         <template #createAt="{ row }">

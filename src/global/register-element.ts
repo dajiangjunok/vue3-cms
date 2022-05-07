@@ -28,7 +28,8 @@ import {
   ElBreadcrumbItem,
   ElTable,
   ElTableColumn,
-  ElTag
+  ElTag,
+  ElPagination
 } from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 // import 'element-plus/theme-chalk/el-loading.css'
@@ -63,7 +64,8 @@ const components = [
   ElBreadcrumbItem,
   ElTable,
   ElTableColumn,
-  ElTag
+  ElTag,
+  ElPagination
 ]
 
 export function registerElement(app: App): void {
