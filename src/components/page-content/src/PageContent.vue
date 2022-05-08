@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, PropType } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 import { useStore } from '@/store'
 import YJTable from '@/base-ui/table'
 
