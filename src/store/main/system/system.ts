@@ -8,28 +8,36 @@ const systemModule: Module<ISystemState, IRootStata> = {
   namespaced: true,
   state() {
     return {
-      userList: [],
-      userCount: 0
+      usersList: [],
+      usersCount: 0
+    }
+  },
+  getters: {
+    pageListData(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}List`]
+      }
     }
   },
   mutations: {
-    updateUserList(state: ISystemState, userList: any[]) {
-      state.userList = userList
+    updateUsersList(state: ISystemState, usersList: any[]) {
+      state.usersList = usersList
     },
-    updateUserCount(state: ISystemState, userCount: number) {
-      state.userCount = userCount
+    updateUsersCount(state: ISystemState, usersCount: number) {
+      state.usersCount = usersCount
     }
   },
   actions: {
     async getPageListAction({ commit }, payload) {
+      const pageName = payload.pageName
+      const pageUrl = `/${pageName}/list`
       // 1.发送请求
-      const pageResult = await getPageListData(
-        payload.pageUrl,
-        payload.queryInfo
-      )
+      const pageResult = await getPageListData(pageUrl, payload.queryInfo)
       const { list, totalCount } = pageResult.data
-      commit('updateUserList', list)
-      commit('updateUserCount', totalCount)
+      const changePageName =
+        pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
+      commit(`update${changePageName}List`, list)
+      commit(`update${changePageName}Count`, totalCount)
     }
   }
 }
