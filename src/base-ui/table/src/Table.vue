@@ -23,12 +23,12 @@
       <div class="footer">
         <el-pagination
           v-model:currentPage="currentPage"
-          :page-size="100"
+          :page-size="10"
           :small="small"
           :disabled="disabled"
           :background="background"
           layout="total, prev, pager, next"
-          :total="1000"
+          :total="total"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
@@ -70,6 +70,10 @@ export default defineComponent({
     small: {
       type: Boolean,
       default: false
+    },
+    total: {
+      type: Number,
+      default: 0
     }
   },
   setup(prop, { emit }) {

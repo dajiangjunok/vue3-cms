@@ -2,6 +2,7 @@
   <div class="page-content">
     <YJTable
       :tableList="list"
+      :total="total"
       :otherProps="{ stripe: true }"
       v-bind="contentTableConfig"
     >
@@ -19,15 +20,17 @@
       <template #updateAt="{ row }">
         {{ String(row.updateAt).substring(0, 10) }}
       </template>
-      <template #operate>
-        <el-button size="small" type="danger">删除</el-button>
+      <template #operate="{ row }">
+        <slot name="operate" :row="row">
+          <el-button size="small" type="danger">删除</el-button>
+        </slot>
       </template>
     </YJTable>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed, ref, PropType } from 'vue'
 import { useStore } from '@/store'
 import YJTable from '@/base-ui/table'
 
@@ -58,11 +61,15 @@ export default defineComponent({
 
     const list = computed(() => {
       return store.getters[`system/pageListData`](props.pageName)
-      // return store.getters.system.pageListData(props.pageName)
+    })
+
+    const total = computed(() => {
+      return store.getters[`system/pageListCount`](props.pageName)
     })
 
     return {
-      list
+      list,
+      total
     }
   }
 })

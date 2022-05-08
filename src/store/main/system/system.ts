@@ -9,13 +9,20 @@ const systemModule: Module<ISystemState, IRootStata> = {
   state() {
     return {
       usersList: [],
-      usersCount: 0
+      usersCount: 0,
+      roleList: [],
+      roleCount: 0
     }
   },
   getters: {
     pageListData(state) {
       return (pageName: string) => {
         return (state as any)[`${pageName}List`]
+      }
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`]
       }
     }
   },
@@ -25,6 +32,12 @@ const systemModule: Module<ISystemState, IRootStata> = {
     },
     updateUsersCount(state: ISystemState, usersCount: number) {
       state.usersCount = usersCount
+    },
+    updateRoleList(state: ISystemState, roleList: any[]) {
+      state.roleList = roleList
+    },
+    updateRoleCount(state: ISystemState, roleCount: number) {
+      state.roleCount = roleCount
     }
   },
   actions: {
@@ -36,6 +49,7 @@ const systemModule: Module<ISystemState, IRootStata> = {
       const { list, totalCount } = pageResult.data
       const changePageName =
         pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
+
       commit(`update${changePageName}List`, list)
       commit(`update${changePageName}Count`, totalCount)
     }
