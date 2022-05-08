@@ -1,4 +1,3 @@
-import { PropType } from 'vue'
 interface IContentTable {
   title: string
   propList?: any[]
