@@ -45,7 +45,7 @@ const systemModule: Module<ISystemState, IRootStata> = {
       const pageName = payload.pageName
       const pageUrl = `/${pageName}/list`
       // 1.发送请求
-      const pageResult = await getPageListData(pageUrl, payload.queryInfo)
+      const pageResult = await getPageListData(pageUrl, payload.queryInfo, true)
       const { list, totalCount } = pageResult.data
       const changePageName =
         pageName.slice(0, 1).toUpperCase() + pageName.slice(1)

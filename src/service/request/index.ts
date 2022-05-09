@@ -55,7 +55,7 @@ class YJRequest {
       (res) => {
         setTimeout(() => {
           this.loading?.close()
-        }, 1000)
+        }, 500)
         // console.log('所有实例拦截器：请求返回拦截')
         return res.data
       },

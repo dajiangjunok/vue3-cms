@@ -4,7 +4,7 @@
       <template #footer>
         <div class="text-right padding-4">
           <el-button type="primary" plain @click="onRefresh">重置</el-button>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="onSearch">搜索</el-button>
         </div>
       </template>
     </YJForm>
@@ -26,7 +26,7 @@ export default defineComponent({
   components: {
     YJForm
   },
-  setup(props) {
+  setup(props, { emit }) {
     const formItems = [...props.searchFormConfig.formItems]
     const _formData: any = {}
     formItems.forEach((item) => {
@@ -38,14 +38,21 @@ export default defineComponent({
 
     // 刷新
     const onRefresh = () => {
-      for (const key in _formData) {
-        formData.value[`${key}`] = _formData[key]
-      }
+      // for (const key in _formData) {
+      //   formData.value[`${key}`] = _formData[key]
+      // }
+      formData.value = _formData
+      emit('onSearch', formData.value)
+    }
+
+    const onSearch = () => {
+      emit('onSearch', formData.value)
     }
 
     return {
       formData,
-      onRefresh
+      onRefresh,
+      onSearch
     }
   }
 })
