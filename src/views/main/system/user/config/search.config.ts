@@ -39,7 +39,10 @@ export const searchFormConfig: IForm = {
       options: [
         { title: '篮球', value: 'basketball' },
         { title: '足球', value: 'football' }
-      ]
+      ],
+      otherOptions: {
+        clearable: true
+      }
     },
     {
       field: 'createTime',

@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import PageSearch from '@/components/page-search/index'
-import PageContent from '@/components/page-content/index'
+import PageSearch from '@/components/page-search'
+import PageContent from '@/components/page-content'
 
 import { searchFormConfig } from './config/search.config' //form配置项
 import { contentTableConfig } from './config/content.config'
