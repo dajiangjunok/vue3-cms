@@ -38,13 +38,9 @@ export default defineComponent({
 
     // 刷新
     const onRefresh = () => {
-      // for (const key in _formData) {
-      //   formData.value[`${key}`] = _formData[key]
-      // }
       formData.value = _formData
       emit('onSearch', formData.value)
     }
-
     const onSearch = () => {
       emit('onSearch', formData.value)
     }
