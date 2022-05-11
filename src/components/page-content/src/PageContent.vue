@@ -5,6 +5,7 @@
       :total="total"
       :otherProps="{ stripe: true }"
       v-bind="contentTableConfig"
+      v-model:page="pageInfo"
     >
       <template #headerHandler>
         <el-button size="small" type="primary">新建用户</el-button>
@@ -30,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed, PropType, ref, watch } from 'vue'
 import { useStore } from '@/store'
 import YJTable from '@/base-ui/table'
 
@@ -51,6 +52,10 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore()
+
+    // 1.双向绑定pageInfo
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    watch(pageInfo, () => getPageData())
 
     function getPageData(userInfo: any = {}) {
       store.dispatch('system/getPageListAction', {
@@ -76,6 +81,7 @@ export default defineComponent({
     return {
       list,
       total,
+      pageInfo,
       getPageData
     }
   }

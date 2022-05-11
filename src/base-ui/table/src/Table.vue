@@ -22,7 +22,6 @@
     <slot name="footer">
       <div class="footer">
         <el-pagination
-          v-model:currentPage="currentPage"
           :page-size="10"
           :small="small"
           :disabled="disabled"
@@ -51,6 +50,10 @@ export default defineComponent({
       type: Array,
       required: true
     },
+    page: {
+      type: Object,
+      default: () => ({ currentPage: 0, pageSize: 10 })
+    },
     propList: {
       type: Array as PropType<any>,
       required: true
@@ -76,18 +79,17 @@ export default defineComponent({
       default: 0
     }
   },
-  setup(prop, { emit }) {
-    const handleSizeChange = (val: any) => {
-      emit('size-change', val)
-    }
-    const handleCurrentChange = (val: any) => {
-      emit('current-change', val)
+  emits: ['update:page', 'update:page'],
+  setup(props, { emit }) {
+    const handleCurrentChange = (currentPage: number) => {
+      emit('update:page', { ...props.page, currentPage })
     }
 
-    const currentPage = ref(1)
+    const handleSizeChange = (pageSize: number) => {
+      emit('update:page', { ...props.page, pageSize })
+    }
 
     return {
-      currentPage,
       handleSizeChange,
       handleCurrentChange
     }
