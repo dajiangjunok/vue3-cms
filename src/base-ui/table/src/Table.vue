@@ -24,7 +24,7 @@
       </template>
     </el-table>
     <slot name="footer">
-      <div class="footer">
+      <div class="footer" v-if="showFooter">
         <el-pagination
           :page-size="page.pageSize"
           :small="small"
@@ -66,6 +66,10 @@ export default defineComponent({
     otherProps: {
       type: Object,
       default: () => ({})
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
     },
     background: {
       type: Boolean,

@@ -3,7 +3,6 @@
     <YJTable
       :tableList="list"
       :total="total"
-      :otherProps="{ stripe: true }"
       v-bind="contentTableConfig"
       v-model:page="pageInfo"
     >
