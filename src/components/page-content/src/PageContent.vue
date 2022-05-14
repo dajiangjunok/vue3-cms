@@ -54,15 +54,15 @@ export default defineComponent({
     const store = useStore()
 
     // 1.双向绑定pageInfo
-    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
     function getPageData(userInfo: any = {}) {
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 10,
+          offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
+          size: pageInfo.value.pageSize,
           ...userInfo
         }
       })

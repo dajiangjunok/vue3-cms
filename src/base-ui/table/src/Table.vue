@@ -22,11 +22,12 @@
     <slot name="footer">
       <div class="footer">
         <el-pagination
-          :page-size="10"
+          :page-size="page.pageSize"
           :small="small"
           :disabled="disabled"
           :background="background"
-          layout="total, prev, pager, next"
+          layout="total,sizes,prev,pager,next"
+          :page-sizes="[5, 10, 20]"
           :total="total"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
