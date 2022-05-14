@@ -10,7 +10,11 @@
     </div>
     <el-table v-bind="otherProps" :data="tableList" style="width: 100%">
       <template v-for="columnProp in propList" :key="columnProp.id">
-        <el-table-column align="center" v-bind="columnProp">
+        <el-table-column
+          align="center"
+          v-bind="columnProp"
+          show-overflow-tooltip
+        >
           <template #default="{ row }">
             <slot :name="columnProp.slotName" :row="row">
               {{ row[columnProp.prop] }}

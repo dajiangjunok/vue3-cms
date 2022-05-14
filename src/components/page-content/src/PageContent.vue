@@ -15,16 +15,25 @@
           row.enable == 1 ? '已启用' : '已禁用'
         }}</el-tag>
       </template>
+      <template #status="{ row }">
+        <el-tag :type="row.status == 1 ? 'success' : 'warning'">{{
+          row.status == 1 ? '已启用' : '已禁用'
+        }}</el-tag>
+      </template>
       <template #createAt="{ row }">
         {{ String(row.createAt).substring(0, 10) }}
       </template>
       <template #updateAt="{ row }">
         {{ String(row.updateAt).substring(0, 10) }}
       </template>
-      <template #operate="{ row }">
-        <slot name="operate" :row="row">
-          <el-button size="small" type="danger">删除</el-button>
-        </slot>
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.label"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
       </template>
     </YJTable>
   </div>
@@ -67,21 +76,35 @@ export default defineComponent({
         }
       })
     }
-
+    // 2.发送请求获取数据
     getPageData()
 
+    // 3.从vuex中获取数据
     const list = computed(() => {
       return store.getters[`system/pageListData`](props.pageName)
     })
-
     const total = computed(() => {
       return store.getters[`system/pageListCount`](props.pageName)
     })
+
+    // 4.获取其他动态插槽名称
+    const otherPropSlots = props.contentTableConfig.propList.filter(
+      (item: any) => {
+        if (item.slotName === 'headerHandler') return false
+        if (item.slotName === 'enable') return false
+        if (item.slotName === 'status') return false
+        if (item.slotName === 'createAt') return false
+        if (item.slotName === 'updateAt') return false
+
+        return true
+      }
+    )
 
     return {
       list,
       total,
       pageInfo,
+      otherPropSlots,
       getPageData
     }
   }
