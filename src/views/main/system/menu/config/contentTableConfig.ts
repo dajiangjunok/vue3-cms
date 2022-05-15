@@ -25,7 +25,7 @@ export const contentTableConfig: IContentTable = {
       minWidth: '220',
       slotName: 'updateAt'
     },
-    { label: '操作', minWidth: '120', slotName: 'handler' }
+    { label: '操作', minWidth: '120', slotName: 'operate' }
   ],
   otherProps: {
     stripe: true,

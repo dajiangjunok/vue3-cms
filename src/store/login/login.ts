@@ -8,6 +8,7 @@ import {
   getUserMenu
 } from '@/service/login/service_login'
 import { ElMessage } from 'element-plus'
+import { mapMenusToPermissions } from '@/utils/map-menus'
 
 const loginModule: Module<ILoginState, IRootStata> = {
   namespaced: true,
@@ -15,7 +16,8 @@ const loginModule: Module<ILoginState, IRootStata> = {
     return {
       token: '',
       userInfo: '', //用户信息
-      userMenu: []
+      userMenu: [],
+      permissions: []
     }
   },
   mutations: {
@@ -27,6 +29,9 @@ const loginModule: Module<ILoginState, IRootStata> = {
     },
     updateUserMenu(state: ILoginState, payload: any) {
       state.userMenu = payload
+      // 获取用户按钮的权限
+      const permissions = mapMenusToPermissions(payload)
+      state.permissions = permissions
     }
   },
   actions: {

@@ -7,7 +7,9 @@
       v-model:page="pageInfo"
     >
       <template #headerHandler>
-        <el-button size="small" type="primary">新建用户</el-button>
+        <el-button size="small" type="primary" v-if="isCreate"
+          >新建用户</el-button
+        >
       </template>
       <template #enable="{ row }">
         <el-tag :type="row.enable == 1 ? 'success' : 'warning'">{{
@@ -24,6 +26,24 @@
       </template>
       <template #updateAt="{ row }">
         {{ String(row.updateAt).substring(0, 10) }}
+      </template>
+      <template #operate="{ row }">
+        <div class="handle-btns">
+          <el-button
+            v-if="isUpdate"
+            size="small"
+            type="text"
+            @clik="onEdit(row)"
+            >编辑</el-button
+          >
+          <el-button
+            @clik="onDelete(row)"
+            v-if="isDelete"
+            size="small"
+            type="text"
+            >删除</el-button
+          >
+        </div>
       </template>
       <template
         v-for="item in otherPropSlots"
@@ -42,6 +62,7 @@
 import { defineComponent, computed, PropType, ref, watch } from 'vue'
 import { useStore } from '@/store'
 import YJTable from '@/base-ui/table'
+import { usePermission } from '@/hooks/use-permission'
 
 export default defineComponent({
   name: 'page-content',
@@ -61,11 +82,18 @@ export default defineComponent({
   setup(props) {
     const store = useStore()
 
+    // 0.获取操作的权限
+    const isCreate = usePermission(props.pageName, 'create')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isQuery = usePermission(props.pageName, 'query')
+
     // 1.双向绑定pageInfo
     const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
     function getPageData(userInfo: any = {}) {
+      if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -89,22 +117,39 @@ export default defineComponent({
     // 4.获取其他动态插槽名称
     const otherPropSlots = props.contentTableConfig.propList.filter(
       (item: any) => {
-        if (item.slotName === 'headerHandler') return false
-        if (item.slotName === 'enable') return false
-        if (item.slotName === 'status') return false
-        if (item.slotName === 'createAt') return false
-        if (item.slotName === 'updateAt') return false
-
-        return true
+        switch (item.slotName) {
+          case 'headerHandler':
+          case 'enable':
+          case 'status':
+          case 'createAt':
+          case 'updateAt':
+          case 'operate':
+            return false
+          default:
+            return true
+        }
       }
     )
+
+    const onEdit = (row: any) => {
+      console.log(row)
+    }
+    const onDelete = (row: any) => {
+      console.log(row)
+    }
 
     return {
       list,
       total,
       pageInfo,
       otherPropSlots,
-      getPageData
+      getPageData,
+      isCreate,
+      isUpdate,
+      isDelete,
+      isQuery,
+      onEdit,
+      onDelete
     }
   }
 })
