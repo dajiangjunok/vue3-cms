@@ -12,3 +12,10 @@ export function getPageListData(
     isShowLoading: isShowLoading
   })
 }
+
+// 删除列表数据
+export function deletePageData(url: string) {
+  return yjRequest.delete<any>({
+    url: url
+  })
+}

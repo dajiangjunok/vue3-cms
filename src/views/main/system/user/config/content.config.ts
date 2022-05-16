@@ -26,7 +26,7 @@ export const contentTableConfig: IContentTable = {
       label: '状态',
       prop: 'enable',
       slotName: 'enable',
-      width: 80
+      width: 90
     },
     {
       label: '创建时间',
@@ -41,7 +41,7 @@ export const contentTableConfig: IContentTable = {
     {
       label: '操作',
       slotName: 'operate',
-      width: 80
+      width: 90
     }
   ]
 }

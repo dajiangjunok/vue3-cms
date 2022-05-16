@@ -33,11 +33,11 @@
             v-if="isUpdate"
             size="small"
             type="text"
-            @clik="onEdit(row)"
+            @click="onEdit(row)"
             >编辑</el-button
           >
           <el-button
-            @clik="onDelete(row)"
+            @click="onDelete(row)"
             v-if="isDelete"
             size="small"
             type="text"
@@ -60,6 +60,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType, ref, watch } from 'vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
 import { useStore } from '@/store'
 import YJTable from '@/base-ui/table'
 import { usePermission } from '@/hooks/use-permission'
@@ -131,10 +132,40 @@ export default defineComponent({
       }
     )
 
-    const onEdit = (row: any) => {
-      console.log(row)
+    // 5.删除/编辑/新增
+    const onDelete = async (row: any) => {
+      try {
+        await ElMessageBox.confirm(
+          '此操作将永久删除该用户, 是否继续?',
+          'Warning',
+          {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning'
+          }
+        )
+        await store.dispatch('system/deletePageData', {
+          id: row.id,
+          pageName: props.pageName,
+          pageInfo: {
+            offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
+            size: pageInfo.value.pageSize
+          }
+        })
+
+        ElMessage({
+          type: 'success',
+          message: 'Delete completed'
+        })
+      } catch (error) {
+        ElMessage({
+          type: 'info',
+          message: 'Delete canceled'
+        })
+      }
     }
-    const onDelete = (row: any) => {
+
+    const onEdit = (row: any) => {
       console.log(row)
     }
 
@@ -148,8 +179,8 @@ export default defineComponent({
       isUpdate,
       isDelete,
       isQuery,
-      onEdit,
-      onDelete
+      onDelete,
+      onEdit
     }
   }
 })
