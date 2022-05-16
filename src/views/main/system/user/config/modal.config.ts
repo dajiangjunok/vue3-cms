@@ -19,13 +19,13 @@ export const modalFormConfig: IForm = {
       label: '真实姓名',
       placeholder: '请输入真实姓名'
     },
-    // {
-    //   field: 'password',
-    //   type: 'password',
-    //   label: '用户密码',
-    //   placeholder: '请输入密码',
-    //   isHidden: false
-    // },
+    {
+      field: 'password',
+      type: 'password',
+      label: '用户密码',
+      placeholder: '请输入密码',
+      isHidden: false
+    },
     {
       field: 'cellphone',
       type: 'input',

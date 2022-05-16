@@ -13,13 +13,13 @@
     <PageModal
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
-      :modalFormConfig="modalFormConfig"
+      :modalFormConfig="modalFormConfigRef"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
 import PageModal from '@/components/page-modal'
@@ -41,12 +41,36 @@ export default defineComponent({
   },
   setup() {
     const { pageContentRef, onSearch } = usePageSearch()
-    const { pageModalRef, defaultInfo, onAdd, onEdit } = usePageModal()
+
+    // 此处需要将传递的modalFormConfig数据转为ref对象，这样在修改之后才能响应式
+    const modalFormConfigRef = ref(modalFormConfig)
+
+    const newCb = () => {
+      // 新增回调函数
+      const passWordItem = modalFormConfigRef.value.formItems.find(
+        (item) => item.field === 'password'
+      )
+
+      passWordItem!.isHidden = false
+    }
+    const editCb = () => {
+      // 编辑回调函数
+      const passWordItem = modalFormConfigRef.value.formItems.find(
+        (item) => item.field === 'password'
+      )
+
+      passWordItem!.isHidden = true
+    }
+
+    const { pageModalRef, defaultInfo, onAdd, onEdit } = usePageModal(
+      newCb,
+      editCb
+    )
 
     return {
       searchFormConfig,
       contentTableConfig,
-      modalFormConfig,
+      modalFormConfigRef,
       defaultInfo,
       pageContentRef,
       pageModalRef,
