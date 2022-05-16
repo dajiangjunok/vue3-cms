@@ -1,41 +1,58 @@
 <template>
   <div class="user">
-    <PageSearch :searchFormConfig="searchFormConfig" @onSearch="handelSearch" />
+    <PageSearch :searchFormConfig="searchFormConfig" @onSearch="onSearch" />
     <div class="content">
       <PageContent
         ref="pageContentRef"
         pageName="users"
         :contentTableConfig="contentTableConfig"
+        @onAdd="onAdd"
+        @onEdit="onEdit"
       />
     </div>
+    <PageModal
+      ref="pageModalRef"
+      :defaultInfo="defaultInfo"
+      :modalFormConfig="modalFormConfig"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
+import PageModal from '@/components/page-modal'
 
 import { searchFormConfig } from './config/search.config' //form配置项
 import { contentTableConfig } from './config/content.config'
+import { modalFormConfig } from './config/modal.config'
 
 //hooks
 import { usePageSearch } from '@/hooks/usePageSearch'
+import { usePageModal } from '@/hooks/usePageModal'
 
 export default defineComponent({
   name: 'User',
   components: {
     PageSearch,
-    PageContent
+    PageContent,
+    PageModal
   },
   setup() {
-    const { pageContentRef, handelSearch } = usePageSearch()
+    const { pageContentRef, onSearch } = usePageSearch()
+    const { pageModalRef, defaultInfo, onAdd, onEdit } = usePageModal()
 
     return {
       searchFormConfig,
       contentTableConfig,
+      modalFormConfig,
+      defaultInfo,
       pageContentRef,
-      handelSearch
+      pageModalRef,
+      onSearch,
+      onAdd,
+      onEdit
     }
   }
 })

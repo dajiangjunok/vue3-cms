@@ -4,9 +4,9 @@ import PageContent from '@/components/page-content'
 export function usePageSearch() {
   const pageContentRef = ref<InstanceType<typeof PageContent>>()
 
-  const handelSearch = (userInfo: any) => {
+  const onSearch = (userInfo: any) => {
     pageContentRef.value?.getPageData(userInfo)
   }
 
-  return { pageContentRef, handelSearch }
+  return { pageContentRef, onSearch }
 }

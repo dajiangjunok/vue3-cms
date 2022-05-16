@@ -7,7 +7,7 @@
       v-model:page="pageInfo"
     >
       <template #headerHandler>
-        <el-button size="small" type="primary" v-if="isCreate"
+        <el-button size="small" type="primary" v-if="isCreate" @click="onAdd"
           >新建用户</el-button
         >
       </template>
@@ -63,10 +63,11 @@ import { defineComponent, computed, PropType, ref, watch } from 'vue'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { useStore } from '@/store'
 import YJTable from '@/base-ui/table'
-import { usePermission } from '@/hooks/use-permission'
+import { usePermission } from '@/hooks/usePermission'
 
 export default defineComponent({
   name: 'page-content',
+  emits: ['onEdit', 'onAdd'],
   props: {
     pageName: {
       type: String,
@@ -80,7 +81,7 @@ export default defineComponent({
   components: {
     YJTable
   },
-  setup(props) {
+  setup(props, { emit }) {
     const store = useStore()
 
     // 0.获取操作的权限
@@ -164,9 +165,11 @@ export default defineComponent({
         })
       }
     }
-
     const onEdit = (row: any) => {
-      console.log(row)
+      emit('onEdit', row)
+    }
+    const onAdd = () => {
+      emit('onAdd')
     }
 
     return {
@@ -180,7 +183,8 @@ export default defineComponent({
       isDelete,
       isQuery,
       onDelete,
-      onEdit
+      onEdit,
+      onAdd
     }
   }
 })
