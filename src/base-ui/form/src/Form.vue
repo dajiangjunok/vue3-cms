@@ -28,11 +28,13 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   style="width: 100%"
+                  @update:modelValue="onValueChange($event, item.field)"
                 >
                   <el-option
                     v-for="option in item.options"
                     :key="option.value"
                     :value="option.value"
+                    :label="option.title"
                     >{{ option.title }}</el-option
                   >
                 </el-select>

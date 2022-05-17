@@ -12,6 +12,7 @@
     </div>
     <PageModal
       ref="pageModalRef"
+      pageName="users"
       :defaultInfo="defaultInfo"
       :modalFormConfig="modalFormConfigRef"
     />

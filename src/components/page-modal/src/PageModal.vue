@@ -5,9 +5,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
-            >确定</el-button
-          >
+          <el-button type="primary" @click="onConfirmClick">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -17,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import YJFrom from '@/base-ui/form'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'page-modal',
@@ -29,6 +28,10 @@ export default defineComponent({
     defaultInfo: {
       type: Object,
       default: () => ({})
+    },
+    pageName: {
+      type: String,
+      require: true
     }
   },
   components: {
@@ -48,9 +51,31 @@ export default defineComponent({
       }
     )
 
+    // 点击确定按钮的逻辑
+    const store = useStore()
+    const onConfirmClick = () => {
+      dialogVisible.value = false
+      if (Object.keys(props.defaultInfo).length) {
+        // 编辑
+        console.log('编辑用户')
+        store.dispatch('system/editPageDataAction', {
+          pageName: props.pageName,
+          editData: { ...formData.value },
+          id: props.defaultInfo.id
+        })
+      } else {
+        // 新建
+        console.log('新建用户')
+        store.dispatch('system/createPageDataAction', {
+          pageName: props.pageName,
+          newData: { ...formData.value }
+        })
+      }
+    }
     return {
       dialogVisible,
-      formData
+      formData,
+      onConfirmClick
     }
   }
 })
