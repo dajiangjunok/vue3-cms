@@ -4,6 +4,8 @@ import { ISystemState } from './main/system/types'
 export interface IRootStata {
   name: string
   login?: ILoginState
+  entireDepartment: any[]
+  entireRole: any[]
 }
 
 interface IRootStateAndModule {

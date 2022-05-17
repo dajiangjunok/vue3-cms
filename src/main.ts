@@ -7,6 +7,7 @@ import 'normalize.css'
 
 import router from './router'
 import store from './store'
+import { setupStore } from './store'
 // import yjRequest from './service'
 
 const app = createApp(App)
@@ -15,6 +16,7 @@ const app = createApp(App)
 app.use(globalRegister)
 app.use(router)
 app.use(store)
+setupStore()
 // app.use(ElementPlus)
 
 app.mount('#app')
