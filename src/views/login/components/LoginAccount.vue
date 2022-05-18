@@ -62,6 +62,7 @@ export default defineComponent({
 
           // 登录逻辑
           await store.dispatch('login/accountLoginAction', { ...accountForm })
+
           $router.push({ path: '/main' })
         }
       })

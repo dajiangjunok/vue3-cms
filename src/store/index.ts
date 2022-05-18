@@ -59,9 +59,9 @@ const store = createStore<IRootStata>({
 // 注册相关权限路由
 mapMenusToRoutes(store.state.login!.userMenu)
 
-export function setupStore() {
-  store.dispatch('getInitialDataAction')
-}
+// export function setupStore() {
+//   store.dispatch('getInitialDataAction')
+// }
 
 export function useStore(): Store<IStoreType> {
   return useVuexStore()

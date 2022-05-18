@@ -41,6 +41,8 @@ const loginModule: Module<ILoginState, IRootStata> = {
       if (res.code === 0) {
         commit('updatedToken', res.data.token)
         dispatch('getUserInfoAction', res.data.id)
+        // 发送初始化的请求(完整的role/department)
+        dispatch('getInitialDataAction', null, { root: true })
       } else {
         ElMessage.warning('登录失败～')
       }

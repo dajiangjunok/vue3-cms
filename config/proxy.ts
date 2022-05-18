@@ -13,7 +13,6 @@ const proxyOptions = {
 
 /**
  * 配置 http 代理
- *
  * @type {import('webpack-dev-server').ProxyConfigMap}
  */
 module.exports = {
