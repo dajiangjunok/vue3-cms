@@ -1,4 +1,4 @@
-# vue3-cms
+# vue3-cms Tyscript
 
 ## Project setup
 
