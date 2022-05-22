@@ -35,7 +35,7 @@ export default defineComponent({
     YJCard
   },
   setup() {
-    const store = useStore()
+    // const store = useStore()
 
     return {}
   }
