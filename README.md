@@ -188,3 +188,4 @@ npx husky add .husky/commit-msg "npx --no-install commitlint --edit $1"
 ```
 
 `摸鱼一天`
+`修心一天`
