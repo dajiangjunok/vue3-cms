@@ -8,25 +8,25 @@ enum DashboardAPI {
 }
 
 export function getCategoryGoodsCount() {
-  return yjRequest.get({
+  return yjRequest.get<any>({
     url: DashboardAPI.categoryGoodsCount
   })
 }
 
 export function getCategoryGoodsSale() {
-  return yjRequest.get({
+  return yjRequest.get<any>({
     url: DashboardAPI.categoryGoodsSale
   })
 }
 
 export function getCategoryGoodsFavor() {
-  return yjRequest.get({
+  return yjRequest.get<any>({
     url: DashboardAPI.categoryGoodsFavor
   })
 }
 
 export function getAddressGoodsSale() {
-  return yjRequest.get({
+  return yjRequest.get<any>({
     url: DashboardAPI.addressGoodsSale
   })
 }

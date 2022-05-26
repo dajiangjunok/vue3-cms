@@ -1,10 +1,12 @@
 import { createStore, Store, useStore as useVuexStore } from 'vuex'
 import { IRootStata, IStoreType } from './types'
+
 import login from './login/login'
 import system from './main/system/system'
+import dashboard from './main/analysis/dashboard'
+
 import VuexPersist from 'vuex-persist'
 import { mapMenusToRoutes } from '@/utils/map-menus'
-
 import { getPageListData } from '@/service/main/system/system'
 
 const persist = new VuexPersist({
@@ -50,7 +52,8 @@ const store = createStore<IRootStata>({
   },
   modules: {
     login,
-    system
+    system,
+    dashboard
   },
   plugins: [persist.plugin]
 })

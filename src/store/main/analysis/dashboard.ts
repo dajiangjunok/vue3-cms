@@ -8,9 +8,9 @@ import {
 } from '@/service/main/analysis/dashboard'
 
 import { IDashboardState } from './types'
-import { IRootState } from '../../types'
+import { IRootStata } from '../../types'
 
-const dashboardModule: Module<IDashboardState, IRootState> = {
+const dashboardModule: Module<IDashboardState, IRootStata> = {
   namespaced: true,
   state() {
     return {
